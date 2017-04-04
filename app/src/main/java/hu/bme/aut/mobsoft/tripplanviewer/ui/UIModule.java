@@ -11,6 +11,7 @@ import hu.bme.aut.mobsoft.tripplanviewer.ui.login.LoginPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.search.SearchPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trip.TripPresenter;
+import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsPresenter;
 
 @Module
 public class UIModule {
@@ -45,5 +46,11 @@ public class UIModule {
     @Singleton
     public TripPresenter provideTripPresenter() {
         return new TripPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public TripsPresenter provideTripsPresenter() {
+        return new TripsPresenter();
     }
 }
