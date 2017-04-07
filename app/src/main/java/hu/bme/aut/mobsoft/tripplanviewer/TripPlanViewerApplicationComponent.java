@@ -3,9 +3,11 @@ package hu.bme.aut.mobsoft.tripplanviewer;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import hu.bme.aut.mobsoft.tripplanviewer.interactor.InteractorModule;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.auth.AuthInteractor;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.TripInteractor;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.user.UserInteractor;
+import hu.bme.aut.mobsoft.tripplanviewer.repository.RepositoryModule;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.UIModule;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.login.LoginActivity;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainActivity;
@@ -14,8 +16,9 @@ import hu.bme.aut.mobsoft.tripplanviewer.ui.trip.TripActivity;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsActivity;
 
 @Singleton
-@Component(modules = {UIModule.class})
+@Component(modules = {UIModule.class, RepositoryModule.class, InteractorModule.class})
 public interface TripPlanViewerApplicationComponent {
+    void inject(TripPlanViewerApplication tripPlanViewerApplication);
     void inject(MainActivity mainActivity);
     void inject(LoginActivity loginActivity);
     void inject(SearchActivity searchActivity);
