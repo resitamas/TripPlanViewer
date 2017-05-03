@@ -10,4 +10,5 @@
     <dimen name="smallText">12sp</dimen>
     <dimen name="cityName">15sp</dimen>
     <dimen name="marginTop">5dp</dimen>
+    <dimen name="marginStart">16dp</dimen>
 </resources>
