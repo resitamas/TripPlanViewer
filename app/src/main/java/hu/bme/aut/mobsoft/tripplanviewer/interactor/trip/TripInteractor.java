@@ -15,7 +15,7 @@ public class TripInteractor {
         TripPlanViewerApplication.injector.inject(this);
     }
 
-    public void getUserTripsFromLocalDB(User user) {
+    public void getUserTripsFromLocalDB(int index, User user) {
 
     }
 
