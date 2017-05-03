@@ -23,13 +23,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:text="Name"
+                android:textSize="@dimen/tripNameSmall"
+                android:gravity="center_vertical"
+                />
 
             <TextView
                 android:id="@+id/endpoints"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="Sart city - End city"
+                />
 
         </LinearLayout>
 
@@ -37,7 +43,9 @@
             android:id="@+id/cities"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="10 cities"
+            android:gravity="center"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -49,13 +57,17 @@
                 android:id="@+id/days"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="15 days"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/distance"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="1500 km"
+                android:gravity="center"/>
 
         </LinearLayout>
 

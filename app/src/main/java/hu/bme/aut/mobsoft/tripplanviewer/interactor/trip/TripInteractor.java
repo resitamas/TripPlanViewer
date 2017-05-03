@@ -23,6 +23,11 @@ public class TripInteractor {
 
     }
 
+    public void getTrip(String id)
+    {
+
+    }
+
     public void searchTripsAtServer(SearchCriteria citeria) {
 
     }

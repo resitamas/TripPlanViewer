@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="11"
+            android:layout_marginTop="@dimen/marginTop"
+            >
+            
+            <TextView
+                android:id="@+id/days"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/smallText"
+                android:text="Day 0-1"
+                android:textStyle="italic"
+                />
+
+            <TextView
+                android:id="@+id/hours"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/smallText"
+                android:gravity="center"
+                android:text="0 hour"
+                android:textStyle="italic"
+                />
+
+            <TextView
+                android:id="@+id/kms"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/smallText"
+                android:gravity="center"
+                android:text="0 km"
+                android:textStyle="italic"
+                />
+        
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/cityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="City Name"
+            android:textSize="@dimen/cityName"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/marginTop"
+            />
+
+
+        <TextView
+            android:id="@+id/sights"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sight1, sight2, sight3, sight4, sight5, sight6, sight7, sight8, sight9, sight10"
+            android:layout_marginTop="@dimen/marginTop"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

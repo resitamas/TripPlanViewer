@@ -5,5 +5,9 @@
 
     <dimen name="toolbarHeight">56dp</dimen>
     <dimen name="listItemHeight">72dp</dimen>
-
+    <dimen name="tripName">40sp</dimen>
+    <dimen name="tripNameSmall">20sp</dimen>
+    <dimen name="smallText">12sp</dimen>
+    <dimen name="cityName">15sp</dimen>
+    <dimen name="marginTop">5dp</dimen>
 </resources>
