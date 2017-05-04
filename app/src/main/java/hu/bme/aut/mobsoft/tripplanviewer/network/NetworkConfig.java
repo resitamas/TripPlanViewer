@@ -7,5 +7,5 @@ package hu.bme.aut.mobsoft.tripplanviewer.network;
 public class NetworkConfig {
     public static final String ENDPOINT_ADDRESS = "";
     public static final String ENDPOINT_PREFIX = "/api/";
-    public static final String SERVICE_ENPOINT = ENDPOINT_ADDRESS + ENDPOINT_PREFIX;
+    public static final String SERVICE_ENDPOINT = ENDPOINT_ADDRESS + ENDPOINT_PREFIX;
 }
