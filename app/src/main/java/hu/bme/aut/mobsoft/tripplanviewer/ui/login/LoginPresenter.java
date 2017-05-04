@@ -1,5 +1,11 @@
 package hu.bme.aut.mobsoft.tripplanviewer.ui.login;
 
+import java.util.concurrent.Executor;
+
+import javax.inject.Inject;
+
+import hu.bme.aut.mobsoft.tripplanviewer.interactor.auth.AuthInteractor;
+import hu.bme.aut.mobsoft.tripplanviewer.interactor.auth.AuthType;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.Presenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainScreen;
 
@@ -9,25 +15,46 @@ import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainScreen;
 
 public class LoginPresenter extends Presenter<LoginScreen> {
 
+    @Inject
+    Executor executor;
+
+    @Inject
+    AuthInteractor authInteractor;
+
     public LoginPresenter() {
 
     }
 
     public void loginWithFacebook() {
 
-        //TODO
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                authInteractor.AuthUser(AuthType.Facebook);
+            }
+        });
 
     }
 
     public void loginWithTwitter() {
 
-        //TODO:
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                authInteractor.AuthUser(AuthType.Twitter);
+            }
+        });
 
     }
 
     public void loginWihGoogle() {
 
-        //TODO:
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                authInteractor.AuthUser(AuthType.Google);
+            }
+        });
 
     }
 

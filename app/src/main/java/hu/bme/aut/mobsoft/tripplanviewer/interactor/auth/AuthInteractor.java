@@ -12,8 +12,7 @@ public class AuthInteractor {
         TripPlanViewerApplication.injector.inject(this);
     }
 
-    public void AuthUser() {
-
+    public void AuthUser(AuthType authType) {
 
 
     }
