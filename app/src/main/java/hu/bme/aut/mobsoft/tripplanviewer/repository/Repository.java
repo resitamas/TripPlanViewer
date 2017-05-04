@@ -2,10 +2,11 @@ package hu.bme.aut.mobsoft.tripplanviewer.repository;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Travel;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
 
 /**
@@ -20,8 +21,18 @@ public interface Repository {
 
     List<Trip> getTrips(User user);
 
+    List<Trip> getOtherTrips(User user);
+
     void saveTrip(Trip trip);
 
     void removeTrip(Trip trip);
+
+    List<Travel> getTravels(Trip trip);
+
+    Trip getTrip(int id);
+
+    List<TripSight> getSightsByTrip(Trip trip);
+
+    List<TripSight> getTripsWithSights(User user);
 
 }

@@ -2,12 +2,13 @@ package hu.bme.aut.mobsoft.tripplanviewer.network;
 
 import java.util.List;
 
-import hu.bme.aut.mobsoft.tripplanviewer.network.model.Trip;
-import hu.bme.aut.mobsoft.tripplanviewer.network.model.User;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -33,7 +34,9 @@ public interface TripApi {
      */
 
     @POST("savetrip")
-    Call<Void> saveTrip(@Body Trip trip);
+    Call<Void> saveTrip(@Body Trip trip
+    );
+
 
     /**
      *
@@ -47,12 +50,17 @@ public interface TripApi {
      */
 
     @GET("trips")
-    Call<List<Trip>> getTrips(
-            @Query("cities") String cities,
-            @Query("mindistance") Integer mindistance,
-            @Query("maxdistance") Integer maxdistance,
-            @Query("mindays") Integer mindays,
-            @Query("maxdays") Integer maxdays
-    );
+    Call<List<Trip>> getTrips(@Query("cities") String cities, @Query("mindistance") Integer mindistance, @Query("maxdistance") Integer maxdistance, @Query("mindays") Integer mindays, @Query("maxdays") Integer maxdays);
+
+
+    /**
+     *
+     * Get user trips.
+     * @param userid The id of the user
+     * @return Call<List<DefinitionsTrip>>
+     */
+
+    @GET("user/{userid}/trips")
+    Call<List<Trip>> getUserTrips(@Path("userid") String userid);
 
 }

@@ -44,7 +44,7 @@ public class TripPresenter extends Presenter<TripScreen> {
 
     }
 
-    public void getTrip(final String tripId)
+    public void getTrip(final int tripId)
     {
         executor.execute(new Runnable() {
             @Override

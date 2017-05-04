@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
 import hu.bme.aut.mobsoft.tripplanviewer.model.TripItem;
@@ -38,7 +37,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> {
         TripItem trip = trips.get(position);
 
         holder.tvTripName.setText(trip.tripName);
-        holder.tvEndpoints.setText(trip.endponts);
+        holder.tvEndpoints.setText(trip.endpoints);
         holder.tvCities.setText(trip.cities);
         holder.tvDays.setText(trip.days);
         holder.tvDistance.setText(trip.distance);

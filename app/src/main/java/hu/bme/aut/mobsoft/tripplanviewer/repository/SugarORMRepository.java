@@ -8,7 +8,9 @@ import com.orm.SugarRecord;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Travel;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
 
 /**
@@ -33,6 +35,11 @@ public class SugarORMRepository implements Repository {
     }
 
     @Override
+    public List<Trip> getOtherTrips(User user) {
+        return SugarRecord.find(Trip.class, "user != ? ", String.valueOf(user.getId()));
+    }
+
+    @Override
     public void saveTrip(Trip trip) {
         SugarRecord.save(trip);
     }
@@ -42,5 +49,36 @@ public class SugarORMRepository implements Repository {
         SugarRecord.delete(trip);
     }
 
+    @Override
+    public List<Travel> getTravels(Trip trip) {
+        return SugarRecord.find(Travel.class,"trip = ? ", String.valueOf(trip.getId()));
+    }
+
+    @Override
+    public Trip getTrip(int id) {
+        return Trip.findById(Trip.class,id);
+    }
+
+    @Override
+    public List<TripSight> getSightsByTrip(Trip trip) {
+        return SugarRecord.find(TripSight.class, "trip != ? ", String.valueOf(trip.getId()));
+    }
+
+    @Override
+    public List<TripSight> getTripsWithSights(User user) {
+
+        ArrayList<TripSight> list = new ArrayList<>();
+
+        List<Trip> trips = SugarRecord.find(Trip.class, "user = ? ", String.valueOf(user.getId()));
+
+        for (Trip tr : trips) {
+
+            list.addAll(getSightsByTrip(tr));
+
+        }
+
+        return list;
+
+    }
 
 }

@@ -1,5 +1,7 @@
 package hu.bme.aut.mobsoft.tripplanviewer;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -7,6 +9,7 @@ import hu.bme.aut.mobsoft.tripplanviewer.interactor.InteractorModule;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.auth.AuthInteractor;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.TripInteractor;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.user.UserInteractor;
+import hu.bme.aut.mobsoft.tripplanviewer.network.NetworkModule;
 import hu.bme.aut.mobsoft.tripplanviewer.repository.RepositoryModule;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.UIModule;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.login.LoginActivity;
@@ -16,7 +19,7 @@ import hu.bme.aut.mobsoft.tripplanviewer.ui.trip.TripActivity;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsActivity;
 
 @Singleton
-@Component(modules = {UIModule.class, RepositoryModule.class, InteractorModule.class})
+@Component(modules = {UIModule.class, RepositoryModule.class, InteractorModule.class, NetworkModule.class})
 public interface TripPlanViewerApplicationComponent {
     void inject(TripPlanViewerApplication tripPlanViewerApplication);
     void inject(MainActivity mainActivity);

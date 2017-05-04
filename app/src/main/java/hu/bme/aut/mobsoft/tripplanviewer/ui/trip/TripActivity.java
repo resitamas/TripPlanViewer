@@ -47,7 +47,7 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
 
         String tripId = getIntent().getStringExtra("tripId");
 
-        tripPresenter.getTrip(tripId);
+        tripPresenter.getTrip(Integer.parseInt(tripId));
 
     }
 

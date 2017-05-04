@@ -3,6 +3,8 @@ package hu.bme.aut.mobsoft.tripplanviewer.mock.interceptors;
 import android.net.Uri;
 
 import hu.bme.aut.mobsoft.tripplanviewer.network.NetworkConfig;
+import hu.bme.aut.mobsoft.tripplanviewer.repository.MemoryRepository;
+import hu.bme.aut.mobsoft.tripplanviewer.utils.GsonHelper;
 import okhttp3.Headers;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,22 +26,28 @@ public class TripMock {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "todo/favourite") && request.method().equals("POST")) {
+        if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "/trips") && request.method().equals("GET")){
+
+            MemoryRepository memoryRepository = new MemoryRepository();
+            memoryRepository.open(null);
+            responseString = GsonHelper.getGson().toJson(memoryRepository.getTrips(null));
+            responseCode = 200;
+
+        } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "/savetrip") && request.method().equals("POST")) {
+
             responseString = "";
             responseCode = 200;
 
-            /**
-             * Simple Get Example
-             */
-			/*
-		}else if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "Todos") && request.method().equals("Get")) {
-			MemoryRepository memoryRepository = new MemoryRepository();
-			memoryRepository.open(null);
-			responseString = GsonHelper.getGson().toJson(memoryRepository.getFavourites());
-			responseCode = 200;*/
+        } else if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "/login") && request.method().equals("POST")) {
+
+            responseString = "";
+            responseCode = 200;
+
         } else {
+
             responseString = "ERROR";
             responseCode = 503;
+
         }
 
         return makeResponse(request, headers, responseCode, responseString);

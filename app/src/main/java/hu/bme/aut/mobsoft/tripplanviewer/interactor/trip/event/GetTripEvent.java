@@ -1,28 +1,25 @@
 package hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event;
 
-import java.util.Dictionary;
 import java.util.List;
 
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
-import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 
 /**
- * Created by Resi Tamas on 07/04/2017.
+ * Created by Resi Tamas on 04/05/2017.
  */
 
-public class GetUserTripsFromLocalDBEvent {
+public class GetTripEvent {
 
     private int code;
-    private List<TripSight> trips;
+    private Trip trip;
     private Throwable throwable;
 
-
-    public GetUserTripsFromLocalDBEvent() {
+    public GetTripEvent() {
     }
 
-    public GetUserTripsFromLocalDBEvent(int code, List<TripSight> trips, Throwable throwable) {
+    public GetTripEvent(int code, Trip trip, Throwable throwable) {
         this.code = code;
-        this.trips = trips;
+        this.trip = trip;
         this.throwable = throwable;
     }
 
@@ -34,12 +31,12 @@ public class GetUserTripsFromLocalDBEvent {
         this.code = code;
     }
 
-    public List<TripSight> getTrips() {
-        return trips;
+    public Trip getTrip() {
+        return trip;
     }
 
-    public void setTrips(List<TripSight> trips) {
-        this.trips = trips;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
     public Throwable getThrowable() {
