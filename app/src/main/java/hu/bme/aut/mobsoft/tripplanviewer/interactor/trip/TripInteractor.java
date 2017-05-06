@@ -9,6 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
+import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.GetSightsByTripEvent;
+import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.GetTravelsByTripEvent;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.GetTripEvent;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.GetUserTripsFromLocalDBEvent;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.SaveTripEvent;
@@ -22,6 +24,8 @@ import hu.bme.aut.mobsoft.tripplanviewer.repository.Repository;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication.injector;
+
 /**
  * Created by Resi Tamas on 07/04/2017.
  */
@@ -31,15 +35,15 @@ public class TripInteractor {
     @Inject
     Repository repository;
 
-//    @Inject
+    @Inject
     EventBus bus;
 
     @Inject
     TripApi tripApi;
 
     public TripInteractor() {
-        TripPlanViewerApplication.injector.inject(this);
-        bus = EventBus.getDefault();
+        injector.inject(this);
+
     }
 
     public void getUserTripsFromLocalDB(int index, User user) {
@@ -49,12 +53,12 @@ public class TripInteractor {
 
             List<TripSight> trips = repository.getTripsWithSights(user);
             event.setTrips(trips);
-            bus.post(event);
 
         } catch (Exception e) {
             event.setThrowable(e);
-            bus.post(e);
         }
+
+        bus.post(event);
 
     }
 
@@ -66,12 +70,12 @@ public class TripInteractor {
         try {
 
             repository.saveTrip(trip);
-            bus.post(event);
 
         } catch (Exception e) {
             event.setThrowable(e);
-            bus.post(e);
         }
+
+        bus.post(event);
 
     }
 
@@ -84,12 +88,12 @@ public class TripInteractor {
 
             Trip trip = repository.getTrip(id);
             event.setTrip(trip);
-            bus.post(event);
 
         } catch (Exception e) {
             event.setThrowable(e);
-            bus.post(e);
         }
+
+        bus.post(event);
 
     }
 
@@ -107,12 +111,44 @@ public class TripInteractor {
             event.setCode(response.code());
             event.setTrips(response.body());
 
-            bus.post(event);
 
         } catch (Exception e) {
             event.setThrowable(e);
-            bus.post(e);
         }
+
+        bus.post(event);
+
+    }
+
+    public void getSightsByTrip(Trip trip) {
+
+        GetSightsByTripEvent event = new GetSightsByTripEvent();
+
+        try {
+
+            event.setSights(repository.getSightsByTrip(trip));
+
+        } catch (Exception e) {
+            event.setThrowable(e);
+        }
+
+        bus.post(event);
+
+    }
+
+    public void getTravelsByTrip(Trip trip) {
+
+        GetTravelsByTripEvent event = new GetTravelsByTripEvent();
+
+        try {
+
+            event.setSights(repository.getTravelsWithSights(trip));
+
+        } catch (Exception e) {
+            event.setThrowable(e);
+        }
+
+        bus.post(event);
 
     }
 

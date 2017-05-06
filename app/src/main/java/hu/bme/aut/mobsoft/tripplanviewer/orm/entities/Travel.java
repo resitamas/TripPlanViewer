@@ -20,13 +20,24 @@ public class Travel extends SugarRecord {
 
     Trip trip;
 
-    public Travel(int tripId, int days, int kmsTo, int timeTo, Trip trip, City city) {
+    int number;
+
+    public Travel(int tripId, int days, int kmsTo, int timeTo, Trip trip, City city, int number) {
         this.travelId = tripId;
         this.days = days;
         this.kmsTo = kmsTo;
         this.timeTo = timeTo;
         this.trip = trip;
         this.city = city;
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public int getDays() {

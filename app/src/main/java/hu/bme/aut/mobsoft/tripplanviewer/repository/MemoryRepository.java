@@ -10,6 +10,7 @@ import hu.bme.aut.mobsoft.tripplanviewer.orm.Visibility;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.City;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Sight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Travel;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TravelSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
@@ -23,6 +24,7 @@ public class MemoryRepository implements Repository {
     private ArrayList<Trip> trips;
     private ArrayList<Travel> travels;
     private ArrayList<TripSight> tripSights;
+    private ArrayList<TravelSight> travelSights;
 
     private City losAngeles;
     private City sanFrancisco;
@@ -80,6 +82,10 @@ public class MemoryRepository implements Repository {
 
         //Init trip sights
         initTripSights();
+
+        //Init travel with sights
+        initTravelSights();
+
     }
 
     private void initTripSights() {
@@ -104,22 +110,42 @@ public class MemoryRepository implements Repository {
 
     }
 
+    public void initTravelSights() {
+
+        travelSights.add(new TravelSight(travels.get(0),hollywood));
+        travelSights.add(new TravelSight(travels.get(0),disneyland));
+        travelSights.add(new TravelSight(travels.get(0),strip));
+        travelSights.add(new TravelSight(travels.get(0),goldenGateBridge));
+        travelSights.add(new TravelSight(travels.get(0),fishermansWharf));
+
+        travelSights.add(new TravelSight(travels.get(1),squareHeroes));
+        travelSights.add(new TravelSight(travels.get(1),hillGellert));
+        travelSights.add(new TravelSight(travels.get(1),aranypart));
+
+        travelSights.add(new TravelSight(travels.get(2),canals));
+        travelSights.add(new TravelSight(travels.get(2),colosseum));
+
+        travelSights.add(new TravelSight(travels.get(3),castle));
+        travelSights.add(new TravelSight(travels.get(3),eifelTower));
+
+    }
+
     private void initTravel() {
 
         travels = new ArrayList<>();
 
-        travels.add(new Travel(0,3,100,2,californiaTrip, losAngeles));
-        travels.add(new Travel(1,2,100,2,californiaTrip, lasVegas));
-        travels.add(new Travel(2,3,100,2,californiaTrip, sanFrancisco));
+        travels.add(new Travel(0,3,100,2,californiaTrip, losAngeles,0));
+        travels.add(new Travel(1,2,100,2,californiaTrip, lasVegas,1));
+        travels.add(new Travel(2,3,100,2,californiaTrip, sanFrancisco,2));
 
-        travels.add(new Travel(3,1,100,2,hungaryTrip, budapest));
-        travels.add(new Travel(4,1,100,2,hungaryTrip, balaton));
+        travels.add(new Travel(3,1,100,2,hungaryTrip, budapest,3));
+        travels.add(new Travel(4,1,100,2,hungaryTrip, balaton,4));
 
-        travels.add(new Travel(5,1,100,2,franceTrip, paris));
-        travels.add(new Travel(6,1,100,2,franceTrip, versaille));
+        travels.add(new Travel(5,1,100,2,franceTrip, paris,5));
+        travels.add(new Travel(6,1,100,2,franceTrip, versaille,6));
 
-        travels.add(new Travel(7,1,100,2,italyTrip, rome));
-        travels.add(new Travel(8,1,100,2,italyTrip, venice));
+        travels.add(new Travel(7,1,100,2,italyTrip, rome,7));
+        travels.add(new Travel(8,1,100,2,italyTrip, venice,8));
 
     }
 
@@ -217,6 +243,8 @@ public class MemoryRepository implements Repository {
     @Override
     public Trip getTrip(int id) {
 
+        //return trips.stream().filter(t -> t.getTripId() == id).findFirst().get();
+
         return trips.get(0);
 
     }
@@ -238,5 +266,36 @@ public class MemoryRepository implements Repository {
     @Override
     public List<TripSight> getTripsWithSights(User user) {
         return tripSights;
+    }
+
+    @Override
+    public List<TravelSight> getSightsByTravel(Travel travel) {
+
+        ArrayList<TravelSight> travelSights = new ArrayList<>();
+
+        for (TravelSight travelSight : travelSights) {
+
+            if (travel.getTravelId() == travelSight.getTravel().getTravelId()) {
+                travelSights.add(travelSight);
+            }
+
+        }
+
+        return travelSights;
+    }
+
+    @Override
+    public List<TravelSight> getTravelsWithSights(Trip trip) {
+
+        ArrayList<TravelSight> travelSights = new ArrayList<>();
+
+        for (Travel travel: travels) {
+
+            if (travel.getTrip().getTripId() == trip.getTripId()) {
+                travelSights.addAll(getSightsByTravel(travel));
+            }
+        }
+
+        return travelSights;
     }
 }

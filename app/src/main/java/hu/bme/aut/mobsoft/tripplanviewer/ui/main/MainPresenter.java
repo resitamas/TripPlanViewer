@@ -22,6 +22,8 @@ import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.Presenter;
 
+import static hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication.injector;
+
 
 public class MainPresenter extends Presenter<MainScreen> {
 
@@ -31,22 +33,26 @@ public class MainPresenter extends Presenter<MainScreen> {
     @Inject
     TripInteractor interactor;
 
-    public MainPresenter() {
-    }
+    @Inject
+    EventBus bus;
 
     @Override
     public void attachScreen(MainScreen screen) {
 
         super.attachScreen(screen);
 
-        EventBus.getDefault().register(this);
+        injector.inject(this);
+
+        if (!bus.isRegistered(this)) {
+            bus.register(this);
+        }
 
     }
 
     @Override
     public void detachScreen() {
 
-        EventBus.getDefault().unregister(this);
+        bus.unregister(this);
 
         super.detachScreen();
 
@@ -77,16 +83,18 @@ public class MainPresenter extends Presenter<MainScreen> {
                 ArrayList<TripItem> tripItems = new ArrayList<>();
 
                 Collections.sort(event.getTrips(), new Comparator<TripSight>() {
+
                     @Override
                     public int compare(TripSight o1, TripSight o2) {
 
-                        if (o1.getTrip().getId().compareTo(o2.getTrip().getId()) == 0) {
+                        if ( ((Integer)o1.getTrip().getTripId()).compareTo(o2.getTrip().getTripId()) == 0) {
 
                             return ((Integer)o1.getNumber()).compareTo(o2.getNumber());
                         }
 
-                        return o1.getTrip().getId().compareTo(o2.getTrip().getId());
+                        return ((Integer)o1.getTrip().getTripId()).compareTo(o2.getTrip().getTripId());
                     }
+
                 });
 
                 TripItem item = null;
@@ -103,11 +111,12 @@ public class MainPresenter extends Presenter<MainScreen> {
 
                 for (int i = 1; i < event.getTrips().size(); i++) {
 
-                    if (event.getTrips().get(i - 1).getId().equals(event.getTrips().get(i).getId())) {
+                    if (event.getTrips().get(i - 1).getTrip().getTripId() == (event.getTrips().get(i).getTrip().getTripId())) {
                         cityIds.add(event.getTrips().get(i).getSight().getCity().getCityId());
                         endCity = event.getTrips().get(i).getSight().getCity().getName();
                     } else {
                         item.setEndpoints(startCity + " - " + endCity);
+                        item.setCities(cityIds.size() + " cities");
                         tripItems.add(item);
                         item = CreateItem(event.getTrips().get(i).getTrip());
                         cityIds.clear();
@@ -127,9 +136,10 @@ public class MainPresenter extends Presenter<MainScreen> {
     private TripItem CreateItem(Trip trip){
 
         TripItem item = new TripItem();
-        item.setDistance(Integer.toString(trip.getDistance()));
-        item.setDays(Integer.toString(trip.getDays()));
+        item.setDistance(Integer.toString(trip.getDistance()) + " km");
+        item.setDays(Integer.toString(trip.getDays()) + " days");
         item.setTripName(trip.getName());
+        item.setTripId(trip.getTripId());
 
         return item;
 

@@ -26,19 +26,19 @@ public class TripMock {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "/trips") && request.method().equals("GET")){
+        if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "trips") && request.method().equals("GET")){
 
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
             responseString = GsonHelper.getGson().toJson(memoryRepository.getTrips(null));
             responseCode = 200;
 
-        } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "/savetrip") && request.method().equals("POST")) {
+        } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "savetrip") && request.method().equals("POST")) {
 
             responseString = "";
             responseCode = 200;
 
-        } else if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "/login") && request.method().equals("POST")) {
+        } else if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "login") && request.method().equals("POST")) {
 
             responseString = "";
             responseCode = 200;

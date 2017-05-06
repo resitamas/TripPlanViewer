@@ -11,6 +11,7 @@ public class TripItem {
     public String cities;
     public String days;
     public String distance;
+    public int tripId;
 
     public TripItem() {
     }
@@ -61,5 +62,13 @@ public class TripItem {
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+    public int getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(int tripId) {
+        this.tripId = tripId;
     }
 }

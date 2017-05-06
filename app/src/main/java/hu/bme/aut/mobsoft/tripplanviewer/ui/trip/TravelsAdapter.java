@@ -5,20 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
-import hu.bme.aut.mobsoft.tripplanviewer.model.CityItem;
+import hu.bme.aut.mobsoft.tripplanviewer.model.TravelItem;
 
 /**
  * Created by Resi Tamas on 03/05/2017.
  */
 
-public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> {
+public class TravelsAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
 
-    ArrayList<CityItem> cities;
+    List<TravelItem> travels;
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,7 +32,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> {
     @Override
     public void onBindViewHolder(CityViewHolder holder, int position) {
 
-        CityItem city = cities.get(position);
+        TravelItem city = travels.get(position);
 
         holder.tvDays.setText(city.days);
         holder.tvHours.setText(city.hours);
@@ -44,13 +44,13 @@ public class CitiesAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     @Override
     public int getItemCount() {
-        return cities.size();
+        return travels.size();
     }
 
-    public void swipe(ArrayList<CityItem> cities)
+    public void swipe(List<TravelItem> cities)
     {
-        this.cities.clear();
-        this.cities.addAll(cities);
+        this.travels.clear();
+        this.travels.addAll(cities);
         notifyDataSetChanged();
     }
 
