@@ -1,5 +1,6 @@
 package hu.bme.aut.mobsoft.tripplanviewer.ui.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,6 +27,7 @@ import hu.bme.aut.mobsoft.tripplanviewer.R;
 import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
 import hu.bme.aut.mobsoft.tripplanviewer.model.SearchCriteria;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsActivity;
 
 import static hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication.injector;
@@ -52,6 +56,16 @@ public class SearchActivity extends AppCompatActivity implements SearchScreen, V
         InitDaysSeekbar((RangeSeekBar) findViewById(R.id.skDays));
         InitDistanceSeekbar((RangeSeekBar) findViewById(R.id.skKms));
 
+        EditText editText = (EditText) findViewById(R.id.cityName);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
 //        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SE‌​RVICE);
 //        imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
     }
@@ -61,8 +75,9 @@ public class SearchActivity extends AppCompatActivity implements SearchScreen, V
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
     @Override
@@ -72,7 +87,9 @@ public class SearchActivity extends AppCompatActivity implements SearchScreen, V
 
             case android.R.id.home:
 
-                NavUtils.navigateUpFromSameTask(this);
+                //NavUtils.navigateUpFromSameTask(this);
+
+                finish();
 
                 return true;
 
@@ -147,10 +164,16 @@ public class SearchActivity extends AppCompatActivity implements SearchScreen, V
     }
 
     @Override
-    public void startTripsActivity(List<Trip> trips) {
+    public void startTripsActivity(List<TripSight> trips) {
 
         Intent intent = new Intent(this, TripsActivity.class);
+        intent.putExtra("trips",new Gson().toJson(trips));
         startActivity(intent);
 
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

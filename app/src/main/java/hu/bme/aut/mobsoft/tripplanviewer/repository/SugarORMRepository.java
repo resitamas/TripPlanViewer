@@ -8,6 +8,7 @@ import com.orm.SugarRecord;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.aut.mobsoft.tripplanviewer.orm.TripType;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Travel;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TravelSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
@@ -66,11 +67,11 @@ public class SugarORMRepository implements Repository {
     }
 
     @Override
-    public List<TripSight> getTripsWithSights(User user) {
+    public List<TripSight> getTripsWithSights(User user, TripType tripType) {
 
         ArrayList<TripSight> list = new ArrayList<>();
 
-        List<Trip> trips = SugarRecord.find(Trip.class, "user = ? ", String.valueOf(user.getId()));
+        List<Trip> trips = SugarRecord.find(Trip.class, "user = ?, tripType = ? ", String.valueOf(user.getId()), tripType.toString());
 
         for (Trip tr : trips) {
 

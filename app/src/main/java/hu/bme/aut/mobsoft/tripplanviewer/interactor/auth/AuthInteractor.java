@@ -55,9 +55,7 @@ public class AuthInteractor {
 
     private User SignInWithGoogle() {
 
-
-
-        return new User(1,"Rési Tamás");
+        return new User(1, "Rési Tamás");
     }
 
 }

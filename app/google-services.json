@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "641595040844",
+    "project_id": "firebase-tripplanviewer"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641595040844:android:7b96d8870aefb481",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.mobsoft.tripplanviewer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBajRbkXQ7_Tiqnmmr--z22U82uguDzRiw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-98680206-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

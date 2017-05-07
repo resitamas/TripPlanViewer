@@ -17,6 +17,7 @@ import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.SaveTripEvent;
 import hu.bme.aut.mobsoft.tripplanviewer.interactor.trip.event.SearchTripsAtServerEvent;
 import hu.bme.aut.mobsoft.tripplanviewer.model.SearchCriteria;
 import hu.bme.aut.mobsoft.tripplanviewer.network.TripApi;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.TripType;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
@@ -51,7 +52,14 @@ public class TripInteractor {
         GetUserTripsFromLocalDBEvent event = new GetUserTripsFromLocalDBEvent();
         try {
 
-            List<TripSight> trips = repository.getTripsWithSights(user);
+            List<TripSight> trips = new ArrayList<>();
+
+            if (index == 0) {
+                trips = repository.getTripsWithSights(user, TripType.Own);
+            } else {
+                trips = repository.getTripsWithSights(user, TripType.Other);
+            }
+
             event.setTrips(trips);
 
         } catch (Exception e) {
@@ -99,12 +107,12 @@ public class TripInteractor {
 
     public void searchTripsAtServer(SearchCriteria criteria) {
 
-        Call<List<Trip>> tripsQueryCall =  tripApi.getTrips(criteria.getCityIds(), criteria.getMinDistance(), criteria.getMaxDistance(), criteria.getMinDays(), criteria.getMaxDays());
+        Call<List<TripSight>> tripsQueryCall =  tripApi.getTrips(criteria.getCityIds(), criteria.getMinDistance(), criteria.getMaxDistance(), criteria.getMinDays(), criteria.getMaxDays());
         SearchTripsAtServerEvent event = new SearchTripsAtServerEvent();
 
         try {
 
-            Response<List<Trip>> response = tripsQueryCall.execute();
+            Response<List<TripSight>> response = tripsQueryCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }

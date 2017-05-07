@@ -126,6 +126,10 @@ public class MainPresenter extends Presenter<MainScreen> {
 
                 }
 
+                item.setEndpoints(startCity + " - " + endCity);
+                item.setCities(cityIds.size() + " cities");
+                tripItems.add(item);
+
                 screen.showTrips(tripItems);
             }
         }

@@ -2,7 +2,9 @@ package hu.bme.aut.mobsoft.tripplanviewer.mock.interceptors;
 
 import android.net.Uri;
 
+import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
 import hu.bme.aut.mobsoft.tripplanviewer.network.NetworkConfig;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.TripType;
 import hu.bme.aut.mobsoft.tripplanviewer.repository.MemoryRepository;
 import hu.bme.aut.mobsoft.tripplanviewer.utils.GsonHelper;
 import okhttp3.Headers;
@@ -30,7 +32,7 @@ public class TripMock {
 
             MemoryRepository memoryRepository = new MemoryRepository();
             memoryRepository.open(null);
-            responseString = GsonHelper.getGson().toJson(memoryRepository.getTrips(null));
+            responseString = GsonHelper.getGson().toJson(memoryRepository.getTripSights());
             responseCode = 200;
 
         } else if(uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "savetrip") && request.method().equals("POST")) {

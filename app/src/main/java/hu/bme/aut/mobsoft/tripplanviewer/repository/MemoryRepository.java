@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.TripType;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.Visibility;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.City;
@@ -153,10 +154,10 @@ public class MemoryRepository implements Repository {
 
     private void initTrips() {
 
-        californiaTrip = new Trip(0,"Roadtrip in California", Visibility.Public, 3000, 14, TripType.Own, null);
-        hungaryTrip = new Trip(1,"Explore Hungary", Visibility.Public, 100, 5, TripType.Own, null);
-        italyTrip = new Trip(2,"Visit Italy", Visibility.Private, 500, 6, TripType.Own, null);
-        franceTrip = new Trip(3,"Visit France", Visibility.Public, 400, 7, TripType.Other, null);
+        californiaTrip = new Trip(0,"Roadtrip in California", Visibility.Public, 3000, 14, TripType.Own, new User(1, "Rési Tamás"));
+        hungaryTrip = new Trip(1,"Explore Hungary", Visibility.Public, 100, 5, TripType.Own, new User(1, "Rési Tamás"));
+        italyTrip = new Trip(2,"Visit Italy", Visibility.Private, 500, 6, TripType.Own, new User(1, "Rési Tamás"));
+        franceTrip = new Trip(3,"Visit France", Visibility.Public, 400, 7, TripType.Other, new User(1, "Rési Tamás"));
 
         trips = new ArrayList<>();
 
@@ -270,8 +271,19 @@ public class MemoryRepository implements Repository {
     }
 
     @Override
-    public List<TripSight> getTripsWithSights(User user) {
-        return tripSights;
+    public List<TripSight> getTripsWithSights(User user, TripType tripType) {
+
+        List<TripSight> list = new ArrayList<>();
+
+        for (TripSight tripSight : tripSights) {
+
+            if (tripSight.getTrip().getUser().getUserId() == user.getUserId() && tripSight.getTrip().getTripType() == tripType) {
+                list.add(tripSight);
+            }
+        }
+
+        return list;
+
     }
 
     @Override
@@ -303,5 +315,13 @@ public class MemoryRepository implements Repository {
         }
 
         return list;
+    }
+
+    public ArrayList<TripSight> getTripSights() {
+        return tripSights;
+    }
+
+    public void setTripSights(ArrayList<TripSight> tripSights) {
+        this.tripSights = tripSights;
     }
 }

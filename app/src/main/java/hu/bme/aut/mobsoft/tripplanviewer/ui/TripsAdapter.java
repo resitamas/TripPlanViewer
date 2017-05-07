@@ -19,6 +19,11 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> implement
     private ArrayList<TripItem> trips;
     private View.OnClickListener listener;
 
+    public TripsAdapter(ArrayList<TripItem> trips, View.OnClickListener listener) {
+        this.trips = trips;
+        this.listener = listener;
+    }
+
     public TripsAdapter(View.OnClickListener listener) {
         trips = new ArrayList<>();
         this.listener = listener;
@@ -66,5 +71,13 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> implement
 
 
 
+    }
+
+    public ArrayList<TripItem> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(ArrayList<TripItem> trips) {
+        this.trips = trips;
     }
 }

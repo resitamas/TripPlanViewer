@@ -21,11 +21,12 @@
         android:weightSum="10"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/marginTop"
         >
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
@@ -37,7 +38,7 @@
                 />
 
             <Spinner
-                android:id="@+id/planets_spinner"
+                android:id="@+id/spOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -45,7 +46,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="7"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <View
@@ -62,10 +63,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order by"
+                    android:text="Direction"
                     />
 
                 <Switch
+                    android:id="@+id/swDirection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                    />
@@ -77,12 +79,22 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="@dimen/marginTop"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin">
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/marginTop">
 
     </android.support.v7.widget.RecyclerView>
 

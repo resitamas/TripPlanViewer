@@ -104,7 +104,15 @@ public class TripsFragment extends Fragment implements MainScreen, View.OnClickL
     {
         super.onResume();
 
-        mainPresenter.GetTripsFromLocalDB(index, null);
+        ArrayList<TripItem> items = new ArrayList<>();
+
+//        items.add(new TripItem("Próba","Ide-oda","10","10","10"));
+//        items.add(new TripItem("Próba","Ide-oda","10","10","10"));
+//        items.add(new TripItem("Próba","Ide-oda","10","10","10"));
+//
+//        showTrips(items);
+
+        mainPresenter.GetTripsFromLocalDB(index, TripPlanViewerApplication.user);
 
     }
 
@@ -120,15 +128,6 @@ public class TripsFragment extends Fragment implements MainScreen, View.OnClickL
     public void showNetworkError(String errorMsg) {
         Toast.makeText(getContext(),errorMsg,Toast.LENGTH_LONG).show();
     }
-
-//    @Override
-//    public void recyclerViewClicked(View v, int position) {
-//
-//        Intent intent = new Intent(getActivity(), TripActivity.class);
-//        intent.putExtra("tripId", trips.get(position).getTripId());
-//        startActivity(intent);
-//
-//    }
 
     @Override
     public void onClick(View v) {

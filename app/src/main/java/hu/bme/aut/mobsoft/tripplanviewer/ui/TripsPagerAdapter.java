@@ -37,9 +37,16 @@ public class TripsPagerAdapter extends FragmentStatePagerAdapter {
         if (position == 0)
         {
             return "My Trips";
-        } else
-        {
-            return "Saved Trips";
+        } else {
+
+            if (position == 1) {
+                return "Saved Trips";
+            } else  {
+                return "";
+            }
+
         }
     }
+
+
 }

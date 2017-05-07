@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import hu.bme.aut.mobsoft.tripplanviewer.orm.TripType;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Travel;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TravelSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
@@ -34,7 +35,7 @@ public interface Repository {
 
     List<TripSight> getSightsByTrip(Trip trip);
 
-    List<TripSight> getTripsWithSights(User user);
+    List<TripSight> getTripsWithSights(User user, TripType tripType);
 
     List<TravelSight> getSightsByTravel(Travel travel);
 

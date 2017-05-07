@@ -3,6 +3,7 @@ package hu.bme.aut.mobsoft.tripplanviewer.network;
 import java.util.List;
 
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -50,7 +51,7 @@ public interface TripApi {
      */
 
     @GET("trips")
-    Call<List<Trip>> getTrips(@Query("cities") String cities, @Query("mindistance") Integer mindistance, @Query("maxdistance") Integer maxdistance, @Query("mindays") Integer mindays, @Query("maxdays") Integer maxdays);
+    Call<List<TripSight>> getTrips(@Query("cities") String cities, @Query("mindistance") Integer mindistance, @Query("maxdistance") Integer maxdistance, @Query("mindays") Integer mindays, @Query("maxdays") Integer maxdays);
 
 
     /**

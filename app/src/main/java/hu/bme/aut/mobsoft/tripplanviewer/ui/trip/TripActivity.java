@@ -5,10 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
 
@@ -28,6 +32,9 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
     private RecyclerView recyclerView;
     private TravelsAdapter travelsAdapter;
 
+    Tracker tracker;
+    String name = "TripActivity";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +46,18 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         travelsAdapter = new TravelsAdapter();
 
         recyclerView.setAdapter(travelsAdapter);
+
+        // Obtain the shared Tracker instance.
+        tracker = ((TripPlanViewerApplication) getApplication()).getDefaultTracker();
 
     }
 
@@ -68,6 +82,9 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
         super.onResume();
 
         tripPresenter.getTrip(getIntent().getIntExtra("tripId",1));
+
+        tracker.setScreenName("Image~" + name);
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 
@@ -107,6 +124,10 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
 
                 tripPresenter.saveTrip();
 
+                break;
+
+            case android.R.id.home:
+                finish();
                 break;
 
             default:

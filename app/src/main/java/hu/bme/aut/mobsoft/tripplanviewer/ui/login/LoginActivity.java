@@ -95,6 +95,8 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen, Vie
     @Override
     public void startActivity(User user) {
 
+        TripPlanViewerApplication.user = user;
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
