@@ -4,6 +4,7 @@ import java.util.Dictionary;
 import java.util.List;
 
 import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 
 /**
  * Created by Resi Tamas on 07/04/2017.
@@ -12,14 +13,14 @@ import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
 public class GetUserTripsFromLocalDBEvent {
 
     private int code;
-    private Dictionary<String, List<Trip>> trips;
+    private List<TripSight> trips;
     private Throwable throwable;
 
 
     public GetUserTripsFromLocalDBEvent() {
     }
 
-    public GetUserTripsFromLocalDBEvent(int code, Dictionary<String, List<Trip>> trips, Throwable throwable) {
+    public GetUserTripsFromLocalDBEvent(int code, List<TripSight> trips, Throwable throwable) {
         this.code = code;
         this.trips = trips;
         this.throwable = throwable;
@@ -33,11 +34,11 @@ public class GetUserTripsFromLocalDBEvent {
         this.code = code;
     }
 
-    public Dictionary<String, List<Trip>> getTrips() {
+    public List<TripSight> getTrips() {
         return trips;
     }
 
-    public void setTrips(Dictionary<String, List<Trip>> trips) {
+    public void setTrips(List<TripSight> trips) {
         this.trips = trips;
     }
 

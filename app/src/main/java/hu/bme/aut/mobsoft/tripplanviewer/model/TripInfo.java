@@ -1,5 +1,8 @@
 package hu.bme.aut.mobsoft.tripplanviewer.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Resi Tamas on 03/05/2017.
  */
@@ -11,6 +14,26 @@ public class TripInfo {
     String kms;
     String cities;
     String endpoints;
+
+    List<TravelItem> travelItems;
+
+    public void addCityItem(TravelItem travelItem) {
+
+        if (travelItems == null) {
+            travelItems = new ArrayList<>();
+        }
+
+        travelItems.add(travelItem);
+
+    }
+
+    public List<TravelItem> getTravelItems() {
+        return travelItems;
+    }
+
+    public void setTravelItems(List<TravelItem> travelItems) {
+        this.travelItems = travelItems;
+    }
 
     public String getTripName() {
         return tripName;

@@ -1,5 +1,6 @@
 package hu.bme.aut.mobsoft.tripplanviewer.ui.main;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,13 +16,17 @@ import javax.inject.Inject;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
 import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
+import hu.bme.aut.mobsoft.tripplanviewer.model.SearchCriteria;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.TripsAdapter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.TripsPagerAdapter;
+import hu.bme.aut.mobsoft.tripplanviewer.ui.search.SearchActivity;
+import hu.bme.aut.mobsoft.tripplanviewer.ui.search.SearchPresenter;
 
 public class MainActivity extends AppCompatActivity {
 
-//    @Inject
-//    MainPresenter mainPresenter;
+
+    @Inject
+    SearchPresenter searchPresenter;
 
     ViewPager viewPager;
 
@@ -48,18 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mainPresenter.attachScreen(this);
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        mainPresenter.detachScreen();
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -75,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.action_search:
 
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
 
                 break;
 
@@ -86,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void showMessage(String text) {
-//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-//    }
+
+
 }

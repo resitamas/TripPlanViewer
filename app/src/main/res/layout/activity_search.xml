@@ -15,60 +15,73 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:fitsSystemWindows="true"/>
 
-    <EditText
-        android:id="@+id/cityName"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:hint="Cityname"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Days:"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="@dimen/cityName"
-            android:layout_marginTop="@dimen/marginTop"
-            />
-
-        <org.florescu.android.rangeseekbar.RangeSeekBar
-            android:id="@+id/skDays"
+        <EditText
+            android:id="@+id/cityName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/marginTop" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kms:"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="@dimen/cityName"
-            android:layout_marginTop="@dimen/marginTop"
-            />
-
-        <org.florescu.android.rangeseekbar.RangeSeekBar
-            android:id="@+id/skKms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/marginTop" />
-
-        <Button
-            android:layout_width="200dp"
             android:layout_height="72dp"
-            android:text="Search"
-            android:layout_gravity="center"
+            android:hint="Cityname"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Days:"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="@dimen/cityName"
+                android:layout_marginTop="@dimen/marginTop"
+                />
+
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/skDays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/marginTop"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kms:"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="@dimen/cityName"
+                android:layout_marginTop="@dimen/marginTop"
+                />
+
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:id="@+id/skKms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/marginTop" />
+
+            <Button
+                android:id="@+id/btSearch"
+                android:layout_width="200dp"
+                android:layout_height="72dp"
+                android:text="Search"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 

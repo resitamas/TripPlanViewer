@@ -3,6 +3,7 @@ package hu.bme.aut.mobsoft.tripplanviewer.ui;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
 
@@ -30,4 +31,10 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+//    @Override
+//    public void onClick(View v) {
+//
+//        listener.recyclerViewClicked(v, getLayoutPosition());
+//
+//    }
 }

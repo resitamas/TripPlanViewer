@@ -14,4 +14,8 @@ public class CityWithSights {
     City city;
     ArrayList<Sight> sights;
 
+    public CityWithSights(City city, ArrayList<Sight> sights) {
+        this.city = city;
+        this.sights = sights;
+    }
 }

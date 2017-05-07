@@ -13,6 +13,7 @@ public class TripPlanViewerApplication extends Application {
     Repository repository;
 
     public static TripPlanViewerApplicationComponent injector;
+    
 
     @Override
     public void onCreate() {

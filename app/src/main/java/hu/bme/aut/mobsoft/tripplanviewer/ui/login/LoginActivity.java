@@ -1,16 +1,24 @@
 package hu.bme.aut.mobsoft.tripplanviewer.ui.login;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
 import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
+import hu.bme.aut.mobsoft.tripplanviewer.interactor.auth.event.AuthUserEvent;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.User;
+import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainActivity;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainPresenter;
 
 
@@ -24,8 +32,8 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen, Vie
     LoginPresenter loginPresenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
 
@@ -75,6 +83,20 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen, Vie
 
                 break;
         }
+
+    }
+
+
+    @Override
+    public void showAuthError(String msg) {
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void startActivity(User user) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 }

@@ -1,21 +1,20 @@
 package hu.bme.aut.mobsoft.tripplanviewer.ui.trip;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
 import hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication;
-import hu.bme.aut.mobsoft.tripplanviewer.model.CityItem;
 import hu.bme.aut.mobsoft.tripplanviewer.model.TripInfo;
-import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
 
 /**
  * Created by mobsoft on 2017. 03. 24..
@@ -27,11 +26,11 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
     TripPresenter tripPresenter;
 
     private RecyclerView recyclerView;
-    private CitiesAdapter citiesAdapter;
+    private TravelsAdapter travelsAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_trip);
 
@@ -41,13 +40,10 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
         setSupportActionBar(myToolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        citiesAdapter = new CitiesAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        travelsAdapter = new TravelsAdapter();
 
-        recyclerView.setAdapter(citiesAdapter);
-
-        String tripId = getIntent().getStringExtra("tripId");
-
-        tripPresenter.getTrip(tripId);
+        recyclerView.setAdapter(travelsAdapter);
 
     }
 
@@ -68,6 +64,14 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        tripPresenter.getTrip(getIntent().getIntExtra("tripId",1));
+
+    }
+
+    @Override
     public void showTripInfo(TripInfo tripInfo) {
 
         ((TextView) findViewById(R.id.tripName)).setText(tripInfo.getTripName());
@@ -75,13 +79,42 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
         ((TextView) findViewById(R.id.kms)).setText(tripInfo.getKms());
         ((TextView) findViewById(R.id.cities)).setText(tripInfo.getCities());
         ((TextView) findViewById(R.id.endpoints)).setText(tripInfo.getEndpoints());
+        //((TextView) findViewById(R.id.sights)).setText(tripInfo.get());
+
+        travelsAdapter.swipe(tripInfo.getTravelItems());
 
     }
 
     @Override
-    public void showCities(ArrayList<CityItem> cities) {
-
-        citiesAdapter.swipe(cities);
-
+    public void showMessage(String msg) {
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.trip, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId())
+        {
+            case R.id.action_menu:
+
+                tripPresenter.saveTrip();
+
+                break;
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

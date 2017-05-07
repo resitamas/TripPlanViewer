@@ -7,11 +7,15 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "hu.bme.aut.mobsoft.tripplanviewer"
+        //applicationId "com.resitamas.tripplanviewer"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        jackOptions {
+//            enabled true
+//        }
     }
     buildTypes {
         release {
@@ -19,6 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
@@ -27,18 +35,36 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    // Dagger 2 and Compiler
-    // Required for @Generated annotation (missing in Java <= 1.6; therefore, Android)
+    //JUnit
+    testCompile 'junit:junit:4.12'
+
+    //Android support libraries
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+
+    //Sugar ORm
     compile 'com.github.satyan:sugar:1.4'
+
+    //Eventbus
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    //Dagger 2 and copiler
     compile 'com.google.dagger:dagger-compiler:2.0.1'
     compile 'com.google.dagger:dagger:2.0.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
-    testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.0.1'
     provided 'javax.annotation:jsr250-api:1.0'
+
+    //Range seekbar
+    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+
+    //Retrofit and OkHttp
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'io.swagger:swagger-annotations:1.5.0'
+
 }

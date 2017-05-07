@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
 import hu.bme.aut.mobsoft.tripplanviewer.model.TripItem;
@@ -15,19 +14,22 @@ import hu.bme.aut.mobsoft.tripplanviewer.model.TripItem;
  * Created by Resi Tamas on 03/05/2017.
  */
 
-public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> {
+public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> implements View.OnClickListener {
 
     private ArrayList<TripItem> trips;
+    private View.OnClickListener listener;
 
-//    public TripsAdapter(ArrayList<TripItem> trips)
-//    {
-//        this.trips = trips;
-//    }
+    public TripsAdapter(View.OnClickListener listener) {
+        trips = new ArrayList<>();
+        this.listener = listener;
+    }
 
     @Override
     public TripViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tripitem,parent, false);
+
+        view.setOnClickListener(listener);
 
         return new TripViewHolder(view);
     }
@@ -38,10 +40,12 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> {
         TripItem trip = trips.get(position);
 
         holder.tvTripName.setText(trip.tripName);
-        holder.tvEndpoints.setText(trip.endponts);
+        holder.tvEndpoints.setText(trip.endpoints);
         holder.tvCities.setText(trip.cities);
         holder.tvDays.setText(trip.days);
         holder.tvDistance.setText(trip.distance);
+
+        holder.itemView.setTag(Integer.toString(position));
 
     }
 
@@ -57,4 +61,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripViewHolder> {
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onClick(View v) {
+
+
+
+    }
 }
