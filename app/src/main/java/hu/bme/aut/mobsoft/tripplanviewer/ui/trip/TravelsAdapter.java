@@ -20,6 +20,10 @@ public class TravelsAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     List<TravelItem> travels;
 
+    public TravelsAdapter() {
+        travels = new ArrayList<>();
+    }
+
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

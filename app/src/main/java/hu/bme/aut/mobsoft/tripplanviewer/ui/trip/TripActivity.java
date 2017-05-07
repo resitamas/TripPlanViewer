@@ -2,6 +2,7 @@ package hu.bme.aut.mobsoft.tripplanviewer.ui.trip;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -39,13 +40,10 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
         setSupportActionBar(myToolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         travelsAdapter = new TravelsAdapter();
 
         recyclerView.setAdapter(travelsAdapter);
-
-        int tripId = getIntent().getIntExtra("tripId",1);
-
-        tripPresenter.getTrip(tripId);
 
     }
 
@@ -62,6 +60,14 @@ public class TripActivity extends AppCompatActivity implements TripScreen {
         super.onStop();
 
         tripPresenter.detachScreen();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        tripPresenter.getTrip(getIntent().getIntExtra("tripId",1));
 
     }
 

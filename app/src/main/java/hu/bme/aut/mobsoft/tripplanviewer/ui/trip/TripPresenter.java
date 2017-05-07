@@ -45,10 +45,6 @@ public class TripPresenter extends Presenter<TripScreen> {
 
     Trip trip;
 
-    public TripPresenter() {
-
-    }
-
     @Override
     public void attachScreen(TripScreen screen) {
 
@@ -123,7 +119,7 @@ public class TripPresenter extends Presenter<TripScreen> {
             }
         } else {
 
-            interactor.getSightsByTrip(event.getTrip());
+            interactor.getTravelsByTrip(event.getTrip());
 
         }
     }
@@ -148,10 +144,12 @@ public class TripPresenter extends Presenter<TripScreen> {
                     String startCity = null;
                     String endCity = null;
 
+                    trip = travelSights.get(0).getTravel().getTrip();
+
                     TripInfo tripInfo = new TripInfo();
-                    tripInfo.setDays(Integer.toString(trip.getDays()));
+                    tripInfo.setDays(Integer.toString(trip.getDays()) + " days");
                     tripInfo.setTripName(trip.getName());
-                    tripInfo.setKms(Integer.toString(trip.getDistance()));
+                    tripInfo.setKms(Integer.toString(trip.getDistance()) + " km");
 
                     Collections.sort(travelSights, new Comparator<TravelSight>() {
 
@@ -182,7 +180,9 @@ public class TripPresenter extends Presenter<TripScreen> {
                             ids.add(travel.getTravelId());
 
                             if (travelItem != null) {
+                                travelItem.setSights(sights);
                                 travelItems.add(travelItem);
+                            } else {
                                 startCity = city.getName();
                             }
 
@@ -192,9 +192,8 @@ public class TripPresenter extends Presenter<TripScreen> {
                             travelItem.setCityName(city.getName());
                             travelItem.setDays( "Day " + Integer.toString(days) + " - " +  (days + travel.getDays()));
                             days += travel.getDays();
-                            travelItem.setKms(Integer.toString(travel.getKmsTo()) + " kms");
+                            travelItem.setKms(Integer.toString(travel.getKmsTo()) + " km");
                             travelItem.setHours(Integer.toString(travel.getTimeTo()) + " hours");
-                            travelItem.setSights(sights);
                             sights = travelSight.getSight().getName();
 
                         } else {
@@ -205,8 +204,12 @@ public class TripPresenter extends Presenter<TripScreen> {
 
                     }
 
+                    travelItem.setSights(sights);
+                    travelItems.add(travelItem);
+
                     tripInfo.setTravelItems(travelItems);
                     tripInfo.setEndpoints(startCity + " - " + endCity);
+                    tripInfo.setCities(Integer.toString(travelItems.size()) + " cities");
 
                     screen.showTripInfo(tripInfo);
                 }

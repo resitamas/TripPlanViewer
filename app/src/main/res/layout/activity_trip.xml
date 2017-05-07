@@ -78,6 +78,13 @@
             android:layout_marginTop="@dimen/marginTop"
             />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="@dimen/marginTop"
+            />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
