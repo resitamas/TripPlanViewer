@@ -2,6 +2,7 @@ package hu.bme.aut.mobsoft.tripplanviewer.test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
@@ -34,7 +35,12 @@ public class LoginTest {
 
     }
 
+    @Test
+    public void testLogin() {
 
+
+
+    }
 
     @After
     public void tearDown() {

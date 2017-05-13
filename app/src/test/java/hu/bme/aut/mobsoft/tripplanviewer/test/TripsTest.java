@@ -2,6 +2,7 @@ package hu.bme.aut.mobsoft.tripplanviewer.test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
@@ -31,6 +32,11 @@ public class TripsTest {
         tripsScreen = mock(TripsScreen.class);
         tripsPresenter = new TripsPresenter();
         tripsPresenter.attachScreen(tripsScreen);
+
+    }
+
+    @Test
+    public void shoeTripsTest() {
 
     }
 

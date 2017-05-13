@@ -93,9 +93,16 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:9.0.0'
 
     //Robolectric
-    testCompile('org.robolectric:shadows-support-v4:3.0-rc3') {
+    testCompile('org.robolectric:shadows-support-v4:3.1') {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+//    testCompile "org.robolectric:robolectric:3.3"
+
+    configurations.all {
+        resolutionStrategy {
+            force 'com.google.guava:guava:18.0'
+        }
     }
 
 }

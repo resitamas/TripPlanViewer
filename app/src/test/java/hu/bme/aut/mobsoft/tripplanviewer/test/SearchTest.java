@@ -2,6 +2,7 @@ package hu.bme.aut.mobsoft.tripplanviewer.test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
@@ -24,6 +25,10 @@ public class SearchTest {
     private SearchPresenter searchPresenter;
     private SearchScreen searchScreen;
 
+    @Test
+    public void startTripsActivityTest() {
+
+    }
 
     @Before
     public void setup() throws Exception {
