@@ -1,6 +1,11 @@
 package hu.bme.aut.mobsoft.tripplanviewer.ui.login;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,7 +28,7 @@ import static hu.bme.aut.mobsoft.tripplanviewer.TripPlanViewerApplication.inject
  * Created by mobsoft on 2017. 03. 24..
  */
 
-public class LoginPresenter extends Presenter<LoginScreen> {
+public class LoginPresenter extends Presenter<LoginScreen> implements GoogleApiClient.OnConnectionFailedListener {
 
     @Inject
     Executor executor;
@@ -57,12 +62,18 @@ public class LoginPresenter extends Presenter<LoginScreen> {
 
     }
 
-    public void loginWihGoogle() {
+    public void loginWihGoogle(final GoogleSignInResult result) {
 
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                authInteractor.AuthUser(AuthType.Google);
+
+                if (result.isSuccess()) {
+                    authInteractor.AuthUser(AuthType.Google);
+                } else {
+                    screen.showAuthError("Authentication failed!");
+                }
+
             }
         });
 
@@ -104,4 +115,10 @@ public class LoginPresenter extends Presenter<LoginScreen> {
 
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+        screen.showAuthError(connectionResult.getErrorMessage());
+
+    }
 }

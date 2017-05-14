@@ -1,5 +1,8 @@
 package hu.bme.aut.mobsoft.tripplanviewer.interactor.auth;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
@@ -34,6 +37,9 @@ public class AuthInteractor {
                     throw new Exception("Not supported yet");
 
                 case Google:
+
+
+
 
                     event.setUser(SignInWithGoogle());
 

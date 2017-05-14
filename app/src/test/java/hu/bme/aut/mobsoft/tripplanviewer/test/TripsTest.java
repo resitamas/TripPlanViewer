@@ -6,12 +6,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
+
 import hu.bme.aut.mobsoft.tripplanviewer.BuildConfig;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.Trip;
+import hu.bme.aut.mobsoft.tripplanviewer.orm.entities.TripSight;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsScreen;
 import hu.bme.aut.mobsoft.tripplanviewer.utils.RobolectricDaggerTestRunner;
 
 import static hu.bme.aut.mobsoft.tripplanviewer.TestHelper.setTestInjector;
+import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -36,7 +41,8 @@ public class TripsTest {
     }
 
     @Test
-    public void shoeTripsTest() {
+    public void setTripTest() {
+
 
     }
 

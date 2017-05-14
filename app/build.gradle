@@ -92,6 +92,9 @@ dependencies {
     //Google analytics
     compile 'com.google.android.gms:play-services-analytics:9.0.0'
 
+    //Google sing on
+    compile 'com.google.android.gms:play-services-auth:9.0.0'
+
     //Robolectric
     testCompile('org.robolectric:shadows-support-v4:3.1') {
         exclude group: 'commons-logging', module: 'commons-logging'
