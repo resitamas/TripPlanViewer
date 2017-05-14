@@ -11,6 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -43,27 +49,70 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen, Vie
 
     GoogleApiClient googleApiClient;
 
+    CallbackManager callbackManager;
+
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
 
         TripPlanViewerApplication.injector.inject(this);
 
-        findViewById(R.id.btFacebook).setOnClickListener(this);
+        //findViewById(R.id.btFacebook).setOnClickListener(this);
         findViewById(R.id.btGoogle).setOnClickListener(this);
         findViewById(R.id.btTwitter).setOnClickListener(this);
 
-        // Set the dimensions of the sign-in button.
+        //google sign in
+        initGoogleSignIn();
+
+        //facebook sing in
+        initFacebookSignIn();
+
+    }
+
+    private void initFacebookSignIn() {
+
+        LoginButton loginButton = (LoginButton) findViewById(R.id.btFacebook);
+        loginButton.setReadPermissions("email");
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                loginPresenter.loginWithFacebook();
+
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
+
+    }
+
+    private void initGoogleSignIn() {
+
+        // Set the dimensions of google the sign-in button.
         SignInButton signInButton = (SignInButton) findViewById(R.id.btGoogle);
         signInButton.setSize(SignInButton.SIZE_WIDE);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, loginPresenter).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+
 
     }
 
@@ -136,13 +185,17 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen, Vie
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             loginPresenter.loginWihGoogle(result);
+            return;
         }
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }

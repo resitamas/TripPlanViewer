@@ -1,10 +1,20 @@
 package hu.bme.aut.mobsoft.tripplanviewer;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.util.Base64;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
@@ -35,6 +45,24 @@ public class TripPlanViewerApplication extends Application {
         injector.inject(this);
 
         repository.open(getApplicationContext());
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "hu.bme.aut.mobsoft.tripplanviewer",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
     }
 
     /**

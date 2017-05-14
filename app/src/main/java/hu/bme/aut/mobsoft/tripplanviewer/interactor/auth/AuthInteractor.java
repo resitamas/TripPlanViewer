@@ -34,14 +34,11 @@ public class AuthInteractor {
 
                 case Facebook:
 
-                    throw new Exception("Not supported yet");
+                    event.setUser(SignIn());
 
                 case Google:
 
-
-
-
-                    event.setUser(SignInWithGoogle());
+                    event.setUser(SignIn());
 
                     break;
 
@@ -59,9 +56,10 @@ public class AuthInteractor {
 
     }
 
-    private User SignInWithGoogle() {
+    private User SignIn() {
 
         return new User(1, "Rési Tamás");
     }
+
 
 }

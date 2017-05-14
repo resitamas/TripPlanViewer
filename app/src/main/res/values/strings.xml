@@ -14,4 +14,7 @@
         <item>Cities</item>
     </string-array>
 
+    <string name="facebook_app_id">1348612008541070</string>
+    <string name="fb_login_protocol_scheme">fb1348612008541070</string>
+
 </resources>

@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoft.tripplanviewer.R;
@@ -82,5 +84,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
 
+        LoginManager.getInstance().logOut();
+
+        super.onBackPressed();
+
+    }
 }

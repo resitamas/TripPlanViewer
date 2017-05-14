@@ -13,6 +13,7 @@ apply plugin: 'com.google.gms.google-services'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
 }
 
 
@@ -94,6 +95,9 @@ dependencies {
 
     //Google sing on
     compile 'com.google.android.gms:play-services-auth:9.0.0'
+
+    //Facebook
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     //Robolectric
     testCompile('org.robolectric:shadows-support-v4:3.1') {
