@@ -1,6 +1,8 @@
 package hu.bme.aut.mobsoft.tripplanviewer;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -11,11 +13,13 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import hu.bme.aut.mobsoft.tripplanviewer.ui.UIModule;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.login.LoginPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.main.MainPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.search.SearchPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trip.TripPresenter;
 import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsPresenter;
+import hu.bme.aut.mobsoft.tripplanviewer.utils.UIExecutor;
 
 /**
  * Created by Resi Tamas on 13/05/2017.
@@ -24,38 +28,40 @@ import hu.bme.aut.mobsoft.tripplanviewer.ui.trips.TripsPresenter;
 @Module
 public class TestModule {
 
-    private Context ctx;
+    private final UIModule uiModule;
 
     public TestModule(Context ctx) {
-        this.ctx = ctx;
+        this.uiModule = new UIModule(ctx);
     }
 
     @Provides
     @Singleton
     public MainPresenter provideMainPresenter() {
-        return new MainPresenter();
+        return uiModule.provideMainPresenter();
     }
 
     @Provides
     @Singleton
     public LoginPresenter provideLoginPresenter() {
-        return new LoginPresenter();
+        return uiModule.provideLoginPresenter();
     }
 
     @Provides
     @Singleton
-    public SearchPresenter provideSearchPresenter() { return new SearchPresenter(); }
+    public SearchPresenter provideSearchPresenter() {
+        return uiModule.provideSearchPresenter();
+    }
 
     @Provides
     @Singleton
     public TripPresenter provideTripPresenter() {
-        return new TripPresenter();
+        return uiModule.provideTripPresenter();
     }
 
     @Provides
     @Singleton
     public TripsPresenter provideTripsPresenter() {
-        return new TripsPresenter();
+        return uiModule.provideTripsPresenter();
     }
 
     @Provides
@@ -67,7 +73,7 @@ public class TestModule {
     @Provides
     @Singleton
     public Executor provideExecutor() {
-        return Executors.newFixedThreadPool(1);
+        return new UIExecutor(new Handler(Looper.getMainLooper()));
     }
 
 }

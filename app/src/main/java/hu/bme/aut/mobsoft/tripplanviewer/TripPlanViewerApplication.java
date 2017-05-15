@@ -47,22 +47,23 @@ public class TripPlanViewerApplication extends Application {
         repository.open(getApplicationContext());
 
         FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "hu.bme.aut.mobsoft.tripplanviewer",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
+        //AppEventsLogger.activateApp(this);
 
-        } catch (NoSuchAlgorithmException e) {
-
-        }
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "hu.bme.aut.mobsoft.tripplanviewer",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
     }
 
     /**
@@ -77,5 +78,13 @@ public class TripPlanViewerApplication extends Application {
             tracker = analytics.newTracker(R.xml.global_tracker);
         }
         return tracker;
+    }
+
+    public void setInjector(TripPlanViewerApplicationComponent appComponent) {
+
+        injector = appComponent;
+        injector.inject(this);
+        repository.open(getApplicationContext());
+
     }
 }

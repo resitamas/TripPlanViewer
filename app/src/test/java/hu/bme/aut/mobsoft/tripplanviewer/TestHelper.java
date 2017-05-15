@@ -14,7 +14,7 @@ public class TestHelper {
         ShadowLog.stream = System.out;
         TripPlanViewerApplication application = (TripPlanViewerApplication) RuntimeEnvironment.application;
         TripPlanViewerApplicationComponent injector = DaggerTestComponent.builder().testModule(new TestModule(application.getApplicationContext())).build();
-        application.injector = injector;
+        application.setInjector(injector);
     }
 
 }

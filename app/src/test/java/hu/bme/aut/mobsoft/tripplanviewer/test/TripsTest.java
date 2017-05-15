@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 
 import java.util.List;
@@ -42,7 +43,6 @@ public class TripsTest {
 
     @Test
     public void setTripTest() {
-
 
     }
 

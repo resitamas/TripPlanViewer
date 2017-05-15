@@ -38,6 +38,8 @@ public class TripTest {
     @Test
     public void showTripInfoTest() {
 
+        //tripPresenter.saveTrip();
+
 
     }
 

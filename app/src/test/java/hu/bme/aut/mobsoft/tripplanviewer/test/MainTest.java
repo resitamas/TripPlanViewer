@@ -75,7 +75,7 @@ public class MainTest {
 
         mainPresenter.GetTripsFromLocalDB(index,user);
 
-        //verify(mainScreen).showTrips(tripsCaptor.capture());
+        verify(mainScreen).showTrips(tripsCaptor.capture());
 
 
     }
